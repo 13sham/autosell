@@ -167,11 +167,12 @@ client.once("clientReady", () => {
 client.on("interactionCreate", async (interaction) => {
   try {
     // ----- Slash commands -----
-    if (interaction.isChatInputCommand()) {
-      if (interaction.commandName === "panel") {
-        await interaction.reply({ embeds: [panelEmbed()], components: [panelRow()] });
-        return;
-      }
+    if (interaction.commandName === "panel") {
+  if (!isAdmin(interaction)) return interaction.reply({ content: "Admins only.", ephemeral: true });
+  await interaction.channel.send({ embeds: [panelEmbed()], components: [panelRow()] });
+  await interaction.reply({ content: "Panel posted.", ephemeral: true });
+  return;
+    }
 
       if (interaction.commandName === "setprice") {
         if (!isAdmin(interaction)) return interaction.reply({ content: "Admins only.", ephemeral: true });
