@@ -20,7 +20,10 @@
  *
  * Data is persisted to autosell_data.json next to this script.
  */
-
+const http = require("http");
+http
+  .createServer((req, res) => res.end("AutoSell is running"))
+  .listen(process.env.PORT || 3000, () => console.log("Health server up"));
 require("dotenv").config();
 const fs = require("fs");
 const path = require("path");
